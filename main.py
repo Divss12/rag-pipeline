@@ -8,18 +8,13 @@ from langchain_core.output_parsers import StrOutputParser
 
 csv_file_path = "data.csv"
 
-# source_column is useful to point to the 'main' field, but optional.
 loader = CSVLoader(file_path=csv_file_path)
 docs = loader.load()
 
-# --- INSPECTION: See how LangChain formatted a row ---
 print("\n--- Example of a Loaded Document (One Row) ---")
 print(docs[1].page_content) 
 print("----------------------------------------------\n")
 
-# Note: We usually don't need to split text for CSVs if rows are small,
-# but if fields contain massive text, you might still use a splitter.
-# Here, we pass 'docs' directly to the vector store.
 local_llm = "llama3.2"
 local_embedding = "nomic-embed-text"
 
