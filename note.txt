@@ -1,0 +1,20 @@
+I implemented a RAG pipeline using langchain/ollama.
+For now I used this as my knowledge base: https://huggingface.co/datasets/badrex/LLM-generated-emoji-descriptions (LLM generated emoji tags and descriptions)
+
+How RAG works, in short:
+As a preprocessing step, it converts each row using into embeddings (a vector capturing its meaning)
+It converts the prompt to a vector using the same process.
+Then it matches the prompt to N rows using some vector similarity metric
+It passes these rows to the LLM with a prompt like 'based on these sources only answer the question'
+
+So in this case the emoji selection is happening when the prompt vector and knowledge base vectors are being matched, and the LLM is providing an explanation afterwards.
+
+Current obvious problem: the LLM sometimes seems to ignore this suggestion and suggests emoji based on its 'knowledge'.
+
+Future improvements:
+The prompt being passed into the RAG pipeline would need to be stripped of other words, and only the words capturing the sentiment that needs to be expressed using emoji.
+In my case I used the prompt: 'What emojis do I use to express feeling sad, depressed and anxious?' but maybe just the words 'sad, depressed, anxious' should be used for the document retrieval step.
+
+Since the emoji selection is happening in the document retrieval step, further investigation into embeddings might be needed.
+
+
